@@ -1,0 +1,12 @@
+import SwiftUI
+import MapKit
+
+class Trails: ObservableObject {
+    @Published var trails: [Trail] = [
+        Trail(title: "SL1-1", coordinates: [
+        {{- range .TrackPoints}}
+            CLLocationCoordinate2D(latitude: {{ .Latitude }}, longitude: {{.Longitude -}}),
+        {{- end}}
+        ])
+    ]
+}
