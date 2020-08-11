@@ -5,6 +5,7 @@
 *.so
 *.dylib
 gpxtool
+!cmd/gpxtool
 
 # Test binary, built with `go test -c`
 *.test
