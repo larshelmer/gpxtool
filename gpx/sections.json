@@ -1,0 +1,226 @@
+[
+	{
+		"code": "SL1-1",
+		"name": "Sölvesborg - Grundsjön",
+		"trail": "SL1",
+		"length": 14,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-2-ansl",
+		"name": "Näsum-Näsums bokskogar",
+		"trail": "SL1",
+		"length": 3,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-2",
+		"name": "Grundsjön - Östafors",
+		"trail": "SL1",
+		"length": 16,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-3",
+		"name": "Östafors - Bökestad",
+		"trail": "SL1",
+		"length": 9,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-3A",
+		"name": "Boafall - Olofström",
+		"trail": "SL1",
+		"length": 12,
+		"gps_length": 0,
+		"difficulty": 2
+	},
+	{
+		"code": "SL1-3A-ansl",
+		"name": "Olofström - Halens camping",
+		"trail": "SL1",
+		"length": 1,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-4",
+		"name": "Bökestad - Brotorpet",
+		"trail": "SL1",
+		"length": 13,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-5",
+		"name": "Brotorpet - Vesslarp",
+		"trail": "SL1",
+		"length": 13,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-6",
+		"name": "Vesslarp - Glimåkra",
+		"trail": "SL1",
+		"length": 19,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-6A",
+		"name": "Breanäsleden",
+		"trail": "SL1",
+		"length": 19,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-6A-ansl",
+		"name": "Breanäsleden - Sibbhult",
+		"trail": "SL1",
+		"length": 5,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-7",
+		"name": "Glimåkra - Osby",
+		"trail": "SL1",
+		"length": 18,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-8",
+		"name": "Osby - Verum",
+		"trail": "SL1",
+		"length": 24,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-9",
+		"name": "Verum - Vittsjö",
+		"trail": "SL1",
+		"length": 12,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-10",
+		"name": "Vittsjö - Hårsjö",
+		"trail": "SL1",
+		"length": 8,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-11",
+		"name": "Hårsjö - Lärkesholm",
+		"trail": "SL1",
+		"length": 20,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-12",
+		"name": "Lärkesholm - Bjärabygget",
+		"trail": "SL1",
+		"length": 13,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-12A",
+		"name": "Lärkesholm - Grytåsa",
+		"trail": "SL1",
+		"length": 17,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-13",
+		"name": "Bjärabygget - Koarp",
+		"trail": "SL1",
+		"length": 17,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-14",
+		"name": "Koarp - Brammarp",
+		"trail": "SL1",
+		"length": 17,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-15",
+		"name": "Brammarp - Båstad",
+		"trail": "SL1",
+		"length": 12,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-16",
+		"name": "Båstad - Knösen",
+		"trail": "SL1",
+		"length": 16,
+		"gps_length": 0,
+		"difficulty": 2
+	},
+	{
+		"code": "SL1-17",
+		"name": "Knösen - Torekov",
+		"trail": "SL1",
+		"length": 8,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-18",
+		"name": "Torekov - Vejbystrand",
+		"trail": "SL1",
+		"length": 20,
+		"gps_length": 0,
+		"difficulty": 1
+	},
+	{
+		"code": "SL1-19",
+		"name": "Vejbystrand - Hålehall",
+		"trail": "SL1",
+		"length": 11,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-20",
+		"name": "Hålehall - Örlid",
+		"trail": "SL1",
+		"length": 9,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-21",
+		"name": "Ängelsbäcksstrand - Båstad",
+		"trail": "SL1",
+		"length": 14,
+		"gps_length": 0,
+		"difficulty": 0
+	},
+	{
+		"code": "SL1-22",
+		"name": "Vejbystrand - Ängelholm",
+		"trail": "SL1",
+		"length": 13,
+		"gps_length": 0,
+		"difficulty": 0
+	}
+]

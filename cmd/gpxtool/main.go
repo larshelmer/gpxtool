@@ -12,10 +12,9 @@ func main() {
 	Config := struct {
 		Generate bool
 		Get      bool
-		File     string
 		Folder   string
 	}{
-		Folder: ".",
+		Folder: "gpx",
 	}
 
 	err := konfig.Pick(&Config)
@@ -24,16 +23,14 @@ func main() {
 	}
 
 	if Config.Get {
-		err := download.Do("SL1", Config.Folder, 1)
-		if err != nil {
-			log.Fatalf("get error: %v", err)
+		if err := download.Do(Config.Folder); err != nil {
+			log.Println("download error", err)
 		}
 	}
 
 	if Config.Generate {
-		err = generation.Swift(Config.File)
-		if err != nil {
-			log.Fatalf("generation error: %v", err)
+		if err = generation.Json(Config.Folder); err != nil {
+			log.Println("generation error", err)
 		}
 	}
 }

@@ -1,12 +1,13 @@
 package download
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"path"
+
+	"github.com/larshelmer/gpxtool/internal/resource"
 )
 
 const (
@@ -46,37 +47,32 @@ func needsUpdate(gpxFile string, etagFile string, url string, section string) bo
 	return resp.Header.Get(etagHeader) != etag
 }
 
-func Do(trail string, folder string, count int) error {
-	for i := 1; i <= count; i++ {
-		section := fmt.Sprintf("%v_%v.gpx", trail, i)
-		gpxFile := path.Join(folder, section)
+func Do(folder string) error {
+	for _, section := range resource.Sections {
+		gpxFile := path.Join(folder, section.File)
 		etagFile := gpxFile + ".etag"
 
-		url := baseURL + section
-		if !needsUpdate(gpxFile, etagFile, url, section) {
-			log.Println("etag match", section)
+		url := baseURL + section.File
+		if !needsUpdate(gpxFile, etagFile, url, section.File) {
+			log.Println("etag match", section.File)
 			continue
 		}
 
 		// nolint:gosec // G107: Potential HTTP request made with variable url
 		resp, err := http.Get(url)
 		if err != nil {
-			log.Println("get error", section, err)
+			log.Println("get error", section.File, err)
 			continue
 		}
 
 		if resp.StatusCode != http.StatusOK {
-			log.Println("http error", section, resp.StatusCode)
+			log.Println("http error", section.File, resp.StatusCode)
 			continue
-		}
-
-		for k, v := range resp.Header {
-			log.Println(k, v[0])
 		}
 
 		b, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			log.Println("response read error", section, err)
+			log.Println("response read error", section.File, err)
 			resp.Body.Close()
 
 			continue
@@ -86,7 +82,7 @@ func Do(trail string, folder string, count int) error {
 
 		err = ioutil.WriteFile(gpxFile, b, 0o600)
 		if err != nil {
-			log.Println("gpx write error", section, err)
+			log.Println("gpx write error", section.File, err)
 			continue
 		}
 
@@ -94,11 +90,11 @@ func Do(trail string, folder string, count int) error {
 		if etag != "" {
 			err = ioutil.WriteFile(etagFile, []byte(etag), 0o600)
 			if err != nil {
-				log.Println("etag write error", section, err)
+				log.Println("etag write error", section.File, err)
 				continue
 			}
 		} else {
-			log.Println("no etag header", section)
+			log.Println("no etag header", section.File)
 		}
 	}
 

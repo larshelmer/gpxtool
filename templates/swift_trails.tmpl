@@ -1,12 +1,24 @@
+//
+//  SL1.swift
+//  vandra
+//
+//  Created by Lars Helmer on 2020-08-10.
+//  Copyright © 2020 Lars Helmer. All rights reserved.
+//
+
 import SwiftUI
 import MapKit
 
-class Trails: ObservableObject {
-    @Published var trails: [Trail] = [
-        Trail(title: "SL1-1", coordinates: [
-        {{- range .TrackPoints}}
-            CLLocationCoordinate2D(latitude: {{ .Latitude }}, longitude: {{.Longitude -}}),
-        {{- end}}
+final class {{name}}: Trail {
+    init() {
+        super.init(title: "{{name}}", sections: [
+            {{- range .}}
+            Section(title: "{{.Name}}", coordinates: [
+            {{- range .TrackPoints}}
+                CLLocationCoordinate2D(latitude: {{ .Latitude }}, longitude: {{.Longitude -}}),
+            {{- end}}
+            ]),
+            {{- end}}
         ])
-    ]
+    }
 }
