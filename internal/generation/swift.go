@@ -13,6 +13,7 @@ import (
 type GPX struct {
 	XMLName xml.Name `xml:"gpx"`
 	Track   Track    `xml:"trk"`
+	Route   Route    `xml:"rte"`
 }
 
 type Track struct {
@@ -28,6 +29,17 @@ type TrackSegment struct {
 
 type TrackPoint struct {
 	XMLName   xml.Name `xml:"trkpt"`
+	Latitude  string   `xml:"lat,attr"`
+	Longitude string   `xml:"lon,attr"`
+}
+
+type Route struct {
+	XMLName     xml.Name     `xml:"rte"`
+	RoutePoints []RoutePoint `xml:"rtept"`
+}
+
+type RoutePoint struct {
+	XMLName   xml.Name `xml:"rtept"`
 	Latitude  string   `xml:"lat,attr"`
 	Longitude string   `xml:"lon,attr"`
 }

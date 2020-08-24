@@ -51,13 +51,26 @@ func readGPXFile2(name string, folder string) ([]TrackSegment, error) {
 			r := transform.NewReader(bytes.NewReader(b), charmap.ISO8859_1.NewDecoder())
 			d := xml.NewDecoder(r)
 			if err := d.Decode(&gpx); err != nil {
-				log.Println(file)
+				log.Println(err, file)
 				return []TrackSegment{}, err
 			}
 		} else {
-			log.Println(file)
+			log.Println(err, file)
 			return []TrackSegment{}, err
 		}
+	}
+
+	if len(gpx.Track.TrackSegments) > 0 && len(gpx.Route.RoutePoints) > 0 {
+		log.Println("both track and route", file)
+	} else if len(gpx.Route.RoutePoints) > 0 {
+		segs := []TrackSegment{{}}
+		for _, v := range gpx.Route.RoutePoints {
+			segs[0].TrackPoints = append(segs[0].TrackPoints, TrackPoint{
+				Latitude:  v.Latitude,
+				Longitude: v.Longitude,
+			})
+		}
+		return segs, nil
 	}
 
 	return gpx.Track.TrackSegments, nil
@@ -84,10 +97,13 @@ func distanceBetweenCoordinates(lat1 float64, lon1 float64, lat2 float64, lon2 f
 
 func Json(folder string) error {
 	coordinates := make(map[string][]Coordinate)
-	for _, section := range resource.Sections {
+	for i, section := range resource.Sections {
 		segments, err := readGPXFile2(section.File, folder)
 		if err != nil {
 			return err
+		}
+		if segments == nil || len(segments) == 0 {
+			log.Println("no segments found", section.File)
 		}
 		var plat, plon float64
 		for _, segment := range segments {
@@ -101,7 +117,7 @@ func Json(folder string) error {
 					return err
 				}
 				if plat != 0.0 && plon != 0.0 {
-					section.GPSLength += distanceBetweenCoordinates(plat, plon, lat, lon)
+					resource.Sections[i].GPSLength += distanceBetweenCoordinates(plat, plon, lat, lon)
 				}
 				plat = lat
 				plon = lon
