@@ -95,6 +95,14 @@ func distanceBetweenCoordinates(lat1 float64, lon1 float64, lat2 float64, lon2 f
 	return earthRadiusKm * c
 }
 
+func metersToLatitude(meters float64) float64 {
+	return meters * 0.0000089
+}
+
+func metersToLongitude(lat float64, meters float64) float64 {
+	return (meters * 0.0000089) / math.Cos(lat*0.018)
+}
+
 func Json(folder string) error {
 	coordinates := make(map[string][]Coordinate)
 	for i, section := range resource.Sections {
@@ -105,7 +113,8 @@ func Json(folder string) error {
 		if segments == nil || len(segments) == 0 {
 			log.Println("no segments found", section.File)
 		}
-		var plat, plon float64
+		var plat, plon, maxlat, maxlon, minlat, minlon float64
+		distances := make(map[float64]Coordinate)
 		for _, segment := range segments {
 			for _, point := range segment.TrackPoints {
 				lat, err := strconv.ParseFloat(point.Latitude, 64)
@@ -115,6 +124,16 @@ func Json(folder string) error {
 				lon, err := strconv.ParseFloat(point.Longitude, 64)
 				if err != nil {
 					return err
+				}
+				if lat > maxlat {
+					maxlat = lat
+				} else if lat < minlat || minlat == 0.0 {
+					minlat = lat
+				}
+				if lon > maxlon {
+					maxlon = lon
+				} else if lon < minlon || minlon == 0.0 {
+					minlon = lon
 				}
 				if plat != 0.0 && plon != 0.0 {
 					resource.Sections[i].GPSLength += distanceBetweenCoordinates(plat, plon, lat, lon)
@@ -126,6 +145,21 @@ func Json(folder string) error {
 					lat,
 					lon,
 				})
+				distances[resource.Sections[i].GPSLength] = Coordinate{
+					Latitude:  lat,
+					Longitude: lon,
+				}
+			}
+		}
+		resource.Sections[i].MaxLat = maxlat + metersToLatitude(50)
+		resource.Sections[i].MinLat = minlat - metersToLatitude(50)
+		resource.Sections[i].MaxLon = maxlon + metersToLongitude((minlat+maxlat)/2, 50)
+		resource.Sections[i].MinLon = minlon - metersToLongitude((minlat+maxlat)/2, 50)
+		for d, coord := range distances {
+			if d > (section.GPSLength / 2) {
+				resource.Sections[i].MiddleLat = coord.Latitude
+				resource.Sections[i].MiddleLon = coord.Longitude
+				break
 			}
 		}
 	}
