@@ -115,6 +115,7 @@ func Json(folder string) error {
 		}
 		var plat, plon, maxlat, maxlon, minlat, minlon float64
 		distances := make(map[float64]Coordinate)
+		var dkeys []float64
 		for _, segment := range segments {
 			for _, point := range segment.TrackPoints {
 				lat, err := strconv.ParseFloat(point.Latitude, 64)
@@ -149,16 +150,18 @@ func Json(folder string) error {
 					Latitude:  lat,
 					Longitude: lon,
 				}
+				dkeys = append(dkeys, resource.Sections[i].GPSLength)
 			}
 		}
 		resource.Sections[i].MaxLat = maxlat + metersToLatitude(50)
 		resource.Sections[i].MinLat = minlat - metersToLatitude(50)
 		resource.Sections[i].MaxLon = maxlon + metersToLongitude((minlat+maxlat)/2, 50)
 		resource.Sections[i].MinLon = minlon - metersToLongitude((minlat+maxlat)/2, 50)
-		for d, coord := range distances {
-			if d > (section.GPSLength / 2) {
-				resource.Sections[i].MiddleLat = coord.Latitude
-				resource.Sections[i].MiddleLon = coord.Longitude
+		for _, k := range dkeys {
+			if k > (resource.Sections[i].GPSLength / 2) {
+				resource.Sections[i].MiddleLat = distances[k].Latitude
+				resource.Sections[i].MiddleLon = distances[k].Longitude
+				println(k - resource.Sections[i].GPSLength/2)
 				break
 			}
 		}
